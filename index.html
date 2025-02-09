@@ -7,10 +7,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #fff0f5; text-align: center; }
-        .container { max-width: 400px; margin: 50px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+        .container { 
+            max-width: 400px; 
+            margin: 50px auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+        }
         .btn-custom { background: #ff66b2; color: white; }
         .btn-custom:hover { background: #ff3385; }
         .progress { height: 30px; font-size: 16px; }
+        .heart { font-size: 30px; animation: beat 1s infinite; }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
     </style>
 </head>
 <body>
@@ -23,6 +35,7 @@
         <div class="progress mt-3">
             <div class="progress-bar" id="loveBar" style="width: 0%;" role="progressbar"></div>
         </div>
+        <p class="mt-2 heart" id="heart" style="display: none;">❤️</p>
         <p class="mt-2" id="result"></p>
     </div>
 
@@ -32,6 +45,7 @@
             const name2 = document.getElementById("name2").value.trim();
             const resultDiv = document.getElementById("result");
             const loveBar = document.getElementById("loveBar");
+            const heart = document.getElementById("heart");
 
             if (!name1 || !name2) {
                 resultDiv.innerHTML = "❗ Please enter both names!";
@@ -41,9 +55,52 @@
             const loveScore = Math.floor(Math.random() * 101);
             loveBar.style.width = loveScore + "%";
             loveBar.textContent = loveScore + "%";
+            heart.style.display = "block";
 
-            let message = loveScore > 80 ? "💖 Perfect Match!" : loveScore > 50 ? "💕 Good Connection!" : "💔 Just Friends!";
-            resultDiv.innerHTML = message;
+            // Quotes per tier
+            const quotes = {
+                high: [
+                    "💘 Soulmate mo na 'yan! Huwag mong pakawalan! 🔥",
+                    "💖 True love is real! Kayo na ang magpaparinig sa buong barangay!",
+                    "💞 Solid ang chemistry niyo! Parang kape at gatas, bagay na bagay!",
+                    "💓 Hanap mo pa iba? Huwag na! Perfect match na 'to!",
+                    "🔥 Destiny na 'to! Kung hindi pa, ewan ko na lang!"
+                ],
+                medium: [
+                    "💕 May chemistry kayo! Push mo na 'yan!",
+                    "😍 Ang cute niyo, parang loveteam sa teleserye!",
+                    "💖 Sabi ng tadhana, subukan niyo muna baka kayo ang meant-to-be!",
+                    "💑 Pwede pa 'to! Konting effort lang at swabe na!",
+                    "💞 Kapit lang! Love needs patience and good vibes!"
+                ],
+                low: [
+                    "😆 Medyo mahirap 'to! Pero kung gusto, may paraan!",
+                    "💔 Hmm... mukhang challenge 'to, kaya mo ba?",
+                    "😂 Ang compatibility niyo parang tubig at mantika, pero may pag-asa!",
+                    "😅 Kailangan niyo ng third party… I mean, consultant para gumana!",
+                    "😜 Ang mahalaga, masaya ka! Kahit hindi siya ang 'the one'!"
+                ],
+                friendzone: [
+                    "💔 Friendzone ka na lods... move on na? 😭",
+                    "😆 Kuya mo na lang daw sabi niya!",
+                    "😂 May gusto na siya sa iba, pero ikaw, solid na bestie!",
+                    "🙃 Love mo siya, pero love ba niya ang pagkain lang?",
+                    "🤡 Wag kang malungkot... libre kita milk tea, okay na?"
+                ]
+            };
+
+            let advice = "";
+            if (loveScore > 90) {
+                advice = quotes.high[Math.floor(Math.random() * quotes.high.length)];
+            } else if (loveScore > 75) {
+                advice = quotes.medium[Math.floor(Math.random() * quotes.medium.length)];
+            } else if (loveScore > 50) {
+                advice = quotes.low[Math.floor(Math.random() * quotes.low.length)];
+            } else {
+                advice = quotes.friendzone[Math.floor(Math.random() * quotes.friendzone.length)];
+            }
+
+            resultDiv.innerHTML = `<strong>${name1} ❤️ ${name2} = ${loveScore}%</strong><br>${advice}`;
         }
     </script>
 

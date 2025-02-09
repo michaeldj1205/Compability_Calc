@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Meter Test ❤️</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #fff0f5; text-align: center; }
+        .container { max-width: 400px; margin: 50px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
+        .btn-custom { background: #ff66b2; color: white; }
+        .btn-custom:hover { background: #ff3385; }
+        .progress { height: 30px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>💘 Love Meter Test 💘</h2>
+        <input type="text" class="form-control my-2" id="name1" placeholder="Enter first name">
+        <input type="text" class="form-control my-2" id="name2" placeholder="Enter second name">
+        <button class="btn btn-custom w-100" onclick="calculateLove()">Check Love</button>
+        <div class="progress mt-3">
+            <div class="progress-bar" id="loveBar" style="width: 0%;" role="progressbar"></div>
+        </div>
+        <p class="mt-2" id="result"></p>
+    </div>
+
+    <script>
+        function calculateLove() {
+            const name1 = document.getElementById("name1").value.trim();
+            const name2 = document.getElementById("name2").value.trim();
+            const resultDiv = document.getElementById("result");
+            const loveBar = document.getElementById("loveBar");
+
+            if (!name1 || !name2) {
+                resultDiv.innerHTML = "❗ Please enter both names!";
+                return;
+            }
+
+            const loveScore = Math.floor(Math.random() * 101);
+            loveBar.style.width = loveScore + "%";
+            loveBar.textContent = loveScore + "%";
+
+            let message = loveScore > 80 ? "💖 Perfect Match!" : loveScore > 50 ? "💕 Good Connection!" : "💔 Just Friends!";
+            resultDiv.innerHTML = message;
+        }
+    </script>
+
+</body>
+</html>
